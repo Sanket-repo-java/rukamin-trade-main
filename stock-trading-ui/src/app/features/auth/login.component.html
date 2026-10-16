@@ -1,0 +1,40 @@
+<main class="login-page">
+  <section class="login-card" aria-labelledby="login-title">
+    <div class="sun-logo" role="img" aria-label="Rukamini Trade sun logo"></div>
+    <h1 id="login-title">Login to rukaminitrade</h1>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label class="visually-hidden" for="user-id">Phone or User ID</label>
+      <input id="user-id" type="text" formControlName="userId" autocomplete="username" placeholder="Phone or User ID" aria-label="Phone or User ID">
+      @if (form.controls.userId.touched && form.controls.userId.invalid) {
+        <span class="field-error">Enter your phone number or user ID.</span>
+      }
+
+      <label class="visually-hidden" for="password">Password</label>
+      <div class="password-field">
+        <input id="password" [type]="passwordVisible() ? 'text' : 'password'" formControlName="password" autocomplete="current-password" placeholder="Password" aria-label="Password">
+        <button class="password-toggle" type="button" [attr.aria-label]="passwordVisible() ? 'Hide password' : 'Show password'" (click)="togglePasswordVisibility()"><span aria-hidden="true">{{ passwordVisible() ? '◉' : '◎' }}</span></button>
+      </div>
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <span class="field-error">Password must be at least 6 characters.</span>
+      }
+
+      @if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+      @if (infoMessage()) { <p class="form-info" role="status">{{ infoMessage() }}</p> }
+
+      <button class="login-submit" type="submit">Login</button>
+      <button class="recovery-link" type="button" (click)="showRecoveryInfo()">Forgot user ID or password?</button>
+    </form>
+
+    <p class="demo-note">Demo access only. This page does not authenticate with a broker.</p>
+  </section>
+
+  <p class="signup-copy">Don't have an account? <button type="button" (click)="showSignupInfo()">Sign up for free!</button></p>
+  @if (infoMessage()) { <p class="signup-status" role="status">{{ infoMessage() }}</p> }
+
+  <footer class="login-legal">
+    <div class="legal-brand"><span class="small-sun" aria-hidden="true"></span><span>RUKAMINI TRADE</span></div>
+    <p>Rukamin Broking Limited: Member of NSE, BSE, MCX ‐ SEBI Reg. no. IND89900077, CDSL ‐ SEBI Reg. no. IN-DP-431-2026 | Smart Online Dispute Resolution | SEBI SCORES</p>
+    <span class="app-version">v4.9.0</span>
+  </footer>
+</main>

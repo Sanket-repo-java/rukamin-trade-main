@@ -1,0 +1,15 @@
+.stock-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.green {
+  color: #2e7d32; /* Financial Green */
+  font-weight: bold;
+}
+
+.red {
+  color: #c62828; /* Financial Red */
+  font-weight: bold;
+}

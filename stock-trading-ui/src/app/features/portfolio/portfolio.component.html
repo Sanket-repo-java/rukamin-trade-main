@@ -1,0 +1,39 @@
+<mat-card>
+
+  <mat-card-title>
+    Holdings
+  </mat-card-title>
+
+  <table class="table">
+
+    <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Qty</th>
+      <th>P&L</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr *ngFor="let item of holdings">
+
+      <td>{{item.stock}}</td>
+      <td>{{item.qty}}</td>
+
+      <td
+        [ngClass]="item.pnl > 0 ?
+        'text-success' :
+        'text-danger'">
+
+        {{item.pnl}}
+
+      </td>
+
+    </tr>
+
+    </tbody>
+
+  </table>
+
+</mat-card>

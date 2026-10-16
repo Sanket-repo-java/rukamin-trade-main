@@ -1,0 +1,203 @@
+.broker-app { min-height: 100vh; padding-bottom: calc(78px + env(safe-area-inset-bottom)); color: #242129; background: #fff; }
+.quote-ticker { display: flex; align-items: center; gap: 14px; height: 42px; padding: 0 clamp(16px, 4vw, 56px); overflow: hidden; color: #514e55; background: #fbfbfc; border-bottom: 1px solid #f0eef2; }
+.quote-ticker-track { display: flex; flex: 1; min-width: 0; align-items: center; gap: 28px; overflow-x: auto; scrollbar-width: none; }
+.quote-ticker-track::-webkit-scrollbar, .market-categories::-webkit-scrollbar, .shortcut-list::-webkit-scrollbar { display: none; }
+.ticker-item { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 9px; font-size: 11px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ticker-item strong { color: #312e34; font-size: 10px; }
+.ticker-state { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 6px; color: #85818a; font-size: 9px; font-weight: 700; letter-spacing: .7px; }
+.ticker-state span { width: 6px; height: 6px; border-radius: 50%; background: #c9a85a; }
+.ticker-state.is-live span { background: #269460; }
+.positive { color: #15834d !important; }
+.negative { color: #bb504b !important; }
+
+.broker-header { padding: 14px clamp(16px, 4vw, 56px) 12px; border-bottom: 1px solid #efedf1; }
+.header-row, .search-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; max-width: 1260px; margin: 0 auto; }
+.header-row { margin-bottom: 13px; }
+.brand { display: inline-flex; align-items: center; gap: 9px; padding: 0; border: 0; color: #27232c; background: none; font-size: 17px; font-weight: 700; cursor: pointer; }
+.brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; color: #fff; background: #654190; font-size: 15px; }
+.brand-light { color: #766782; font-weight: 400; }
+.header-actions { display: flex; align-items: center; gap: 9px; }
+.header-icon, .account-button { display: grid; place-items: center; width: 39px; height: 39px; border: 1px solid #ece9ef; border-radius: 9px; color: #3a3540; background: #fff; font-size: 19px; cursor: pointer; }
+.account-button { border-color: #eee9f4; color: #654190; background: #f4f0f8; font-size: 11px; font-weight: 700; }
+.market-search { display: flex; flex: 1; align-items: center; gap: 10px; max-width: 550px; height: 43px; padding: 0 13px; border: 1px solid #ebe8ed; border-radius: 9px; color: #6c6670; background: #faf9fb; }
+.market-search span { font-size: 23px; line-height: 1; }
+.market-search input { width: 100%; min-width: 0; border: 0; outline: 0; color: #29252d; background: transparent; font: inherit; font-size: 13px; }
+.market-search input::placeholder { color: #89848e; }
+.pro-button { min-width: 68px; height: 40px; padding: 0 15px; border: 0; border-radius: 8px; color: #fff; background: #281a3d; font-size: 12px; font-weight: 700; cursor: pointer; }
+.market-categories { display: flex; gap: 25px; max-width: 1260px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 56px); overflow-x: auto; border-bottom: 1px solid #ece9ee; scrollbar-width: none; }
+.market-categories button { position: relative; flex: 0 0 auto; height: 48px; padding: 0 4px; border: 0; color: #77727c; background: transparent; font-size: 13px; font-weight: 650; cursor: pointer; }
+.market-categories button.selected { color: #614087; }
+.market-categories button.selected::after { position: absolute; right: -10px; bottom: 0; left: -10px; height: 2px; border-radius: 2px 2px 0 0; background: #654190; content: ''; }
+.global-notice { max-width: 1180px; margin: 12px auto 0; padding: 11px 15px; border-left: 3px solid #7d5aa3; color: #4f3a66; background: #f5f1f8; font-size: 12px; }
+
+.broker-main { width: min(100%, 1180px); margin: 0 auto; padding: 0 clamp(16px, 4vw, 42px) 30px; }
+.shortcut-list { display: flex; gap: 10px; padding: 17px 0 16px; overflow-x: auto; scrollbar-width: none; }
+.shortcut-list button { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; min-height: 39px; padding: 0 12px; border: 1px solid #e9e7e2; border-radius: 9px; color: #37333a; background: #fff; box-shadow: 0 2px 0 #f0eee8; font-size: 11px; font-weight: 650; cursor: pointer; }
+.shortcut-icon { color: #59406e; font-size: 15px; }
+.portfolio-section, .sessions-section, .home-watchlist { padding: 22px 0; border-top: 1px solid #efedf0; }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.section-heading h1, .section-heading h2 { margin: 0; color: #29252d; font-size: 18px; font-weight: 650; }
+.section-heading h2 { font-size: 16px; }
+.section-heading p { margin: 5px 0 0; color: #817b85; font-size: 11px; }
+.section-heading button { display: inline-flex; align-items: center; gap: 7px; padding: 6px 0; border: 0; color: #654190; background: transparent; font-size: 12px; font-weight: 650; cursor: pointer; }
+.heading-symbol { margin-right: 9px; color: #77559a; font-size: 17px; }
+.muted-title { color: #76717a; font-weight: 500; }
+.portfolio-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 18px; }
+.portfolio-metrics button { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; gap: 6px; padding: 0 18px; border: 0; border-left: 1px solid #eeecf0; color: #76717a; background: transparent; text-align: left; cursor: pointer; }
+.portfolio-metrics button:first-child { padding-left: 0; border-left: 0; }
+.portfolio-metrics button span { font-size: 12px; text-decoration: underline dotted; text-underline-offset: 3px; }
+.portfolio-metrics button strong { color: #8a858e; font-size: 18px; font-weight: 550; }
+.portfolio-metrics button small { color: #9a959d; font-size: 9px; }
+.offer-strip { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 4px 0 8px; padding: 20px 22px; border: 1px solid #e7e6dd; border-radius: 12px; background: #fbfaf6; }
+.offer-kicker { color: #80669a; font-size: 9px; font-weight: 750; letter-spacing: 1px; }
+.offer-strip h2 { margin: 7px 0 4px; color: #302c34; font-size: 15px; font-weight: 650; }
+.offer-strip p { margin: 0; color: #77727a; font-size: 11px; }
+.offer-strip button, .empty-page button { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 12px; min-height: 38px; padding: 0 13px; border: 1px solid #d9cde5; border-radius: 7px; color: #5c3d7c; background: #fff; font-size: 11px; font-weight: 650; cursor: pointer; }
+.sessions-section { padding-top: 23px; }
+.session-tabs { display: flex; gap: 9px; margin: 17px 0 18px; }
+.session-tabs button { min-width: 75px; height: 34px; padding: 0 12px; border: 1px solid #e7e4e9; border-radius: 8px; color: #48434c; background: #fff; font-size: 11px; font-weight: 600; cursor: pointer; }
+.session-tabs button.selected { border-color: #68468b; color: #5c3d7c; background: #faf7fc; box-shadow: inset 0 0 0 1px #68468b; }
+.session-empty { display: flex; min-height: 94px; flex-direction: column; align-items: center; justify-content: center; gap: 5px; border-radius: 10px; color: #918a95; background: #faf9fb; text-align: center; }
+.session-mark { color: #80699a; font-size: 19px; }
+.session-empty strong { color: #514c55; font-size: 11px; }
+.session-empty span:last-child { font-size: 10px; }
+.home-watchlist { padding-bottom: 4px; }
+.quote-list, .order-list { margin-top: 12px; border-top: 1px solid #efedf0; }
+.quote-row, .order-row { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; min-height: 65px; padding: 10px 2px; border: 0; border-bottom: 1px solid #efedf0; color: #35313a; background: #fff; text-align: left; cursor: pointer; }
+.quote-row:hover, .quote-row.active-quote { background: #fbf9fc; }
+.quote-row > span:first-child, .order-row > div:first-child { min-width: 0; }
+.quote-row strong, .order-row strong { display: block; color: #2e2932; font-size: 12px; font-weight: 650; }
+.quote-row small, .order-row small { display: block; margin-top: 4px; overflow: hidden; color: #8a848e; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.quote-value { flex: 0 0 auto; text-align: right; font-variant-numeric: tabular-nums; }
+.quote-value strong { color: #312c34; }
+.quote-value small { margin-top: 4px; }
+
+.content-page { padding-top: 22px; }
+.page-heading { min-height: 56px; padding-bottom: 15px; border-bottom: 1px solid #efedf0; }
+.connection-badge { padding: 6px 8px; border-radius: 20px; color: #8e6b38; background: #f8f1e3; font-size: 9px; font-weight: 700; letter-spacing: .6px; }
+.connection-badge.is-live { color: #22744b; background: #eaf5ed; }
+.empty-page { display: flex; min-height: 125px; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 20px; color: #8d8790; font-size: 11px; text-align: center; }
+.empty-page strong { color: #4d4751; font-size: 13px; }
+.large-empty { min-height: 280px; }
+.empty-symbol { color: #745592; font-size: 25px; }
+.large-empty button { margin-top: 8px; }
+.order-ticket { margin-top: 18px; padding: 17px; border: 1px solid #ece9ee; border-radius: 10px; background: #fff; }
+.ticket-heading { display: flex; align-items: center; justify-content: space-between; }
+.ticket-heading strong, .ticket-heading span { display: block; }
+.ticket-heading strong { color: #322d36; font-size: 13px; }
+.ticket-heading div span { margin-top: 4px; color: #89838d; font-size: 10px; }
+.delivery-tag { padding: 5px 7px; border-radius: 5px; color: #654190; background: #f3eef8; font-size: 9px; font-weight: 700; }
+.side-switch { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; margin: 16px 0; padding: 4px; border-radius: 7px; background: #f4f2f5; }
+.side-switch button { height: 37px; border: 0; border-radius: 5px; color: #6c6670; background: transparent; font-size: 12px; font-weight: 650; cursor: pointer; }
+.side-switch button.active-buy { color: #fff; background: #288052; }
+.side-switch button.active-sell { color: #fff; background: #bd554f; }
+.order-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.order-fields label { display: grid; gap: 6px; color: #716b75; font-size: 10px; font-weight: 600; }
+.order-fields input, .order-fields select { width: 100%; min-width: 0; height: 39px; padding: 0 10px; border: 1px solid #e4e0e6; border-radius: 5px; color: #312c35; background: #fff; font: inherit; font-size: 12px; }
+.ticket-market-price { display: flex; align-items: center; justify-content: space-between; margin: 15px 0; color: #817b85; font-size: 11px; }
+.ticket-market-price strong { color: #312c35; font-variant-numeric: tabular-nums; }
+.submit-order { width: 100%; min-height: 43px; margin-top: 15px; border: 0; border-radius: 6px; color: #fff; background: #288052; font-size: 12px; font-weight: 700; cursor: pointer; }
+.submit-order.sell-order { background: #bd554f; }
+.submit-order:disabled { opacity: .55; cursor: not-allowed; }
+.order-disclaimer { margin: 9px 0 0; color: #938d97; font-size: 9px; }
+.list-heading { margin-top: 24px; }
+.order-row { cursor: default; }
+.bottom-nav { position: fixed; z-index: 10; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); width: min(100%, 820px); min-height: calc(66px + env(safe-area-inset-bottom)); margin: 0 auto; padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); border-top: 1px solid #e9e6ec; border-radius: 12px 12px 0 0; background: #fff; box-shadow: 0 -5px 20px #3020390b; }
+.bottom-nav button { display: flex; min-width: 0; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: 0; color: #79737e; background: transparent; font-size: 9px; font-weight: 550; cursor: pointer; }
+.bottom-nav button.active { color: #614087; font-weight: 700; }
+.nav-icon { font-size: 19px; line-height: 1; }
+.broker-footer { display: flex; justify-content: space-between; gap: 15px; max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 42px) 14px; color: #9b959e; font-size: 9px; }
+.broker-footer span:first-child { font-weight: 700; letter-spacing: .8px; }
+
+@media (min-width: 1000px) {
+  .broker-main { padding-right: 34px; padding-left: 34px; }
+  .broker-app { padding-bottom: 80px; }
+}
+
+@media (max-width: 760px) {
+  .quote-ticker { height: 38px; padding-right: 14px; padding-left: 14px; }
+  .quote-ticker-track { gap: 20px; }
+  .ticker-item { gap: 7px; font-size: 10px; }
+  .broker-header { padding: 12px 16px 11px; }
+  .header-row { margin-bottom: 10px; }
+  .market-categories { gap: 22px; padding-right: 16px; padding-left: 16px; }
+  .market-categories button { height: 43px; font-size: 12px; }
+  .broker-main { padding-right: 16px; padding-left: 16px; }
+  .shortcut-list { margin-right: -16px; padding-right: 16px; }
+  .portfolio-section, .sessions-section, .home-watchlist { padding-top: 19px; padding-bottom: 19px; }
+  .offer-strip { align-items: flex-start; flex-direction: column; gap: 13px; padding: 17px; }
+  .section-heading h1 { font-size: 17px; }
+  .bottom-nav { width: 100%; }
+  .broker-footer { flex-direction: column; gap: 5px; padding-right: 16px; padding-left: 16px; }
+}
+
+@media (max-width: 420px) {
+  .broker-header { padding-right: 12px; padding-left: 12px; }
+  .brand { gap: 7px; font-size: 15px; }
+  .brand-mark { width: 28px; height: 28px; }
+  .header-actions { gap: 6px; }
+  .header-icon, .account-button { width: 35px; height: 35px; }
+  .market-search { height: 40px; }
+  .pro-button { min-width: 54px; padding: 0 10px; }
+  .market-categories { gap: 18px; }
+  .broker-main { padding-right: 12px; padding-left: 12px; }
+  .shortcut-list { margin-right: -12px; padding-right: 12px; }
+  .section-heading h1, .section-heading h2 { font-size: 15px; }
+  .portfolio-metrics button { padding-right: 9px; padding-left: 12px; }
+  .portfolio-metrics button:first-child { padding-left: 0; }
+  .portfolio-metrics button span { font-size: 10px; }
+  .portfolio-metrics button small { font-size: 8px; }
+  .offer-strip button { min-height: 40px; }
+  .order-ticket { padding: 13px; }
+  .broker-footer { padding-right: 12px; padding-left: 12px; }
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background: #1e293b;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.market-summary {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 180px;
+  background: #f8fafc;
+}
+
+.watchlist {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+th {
+  background: #f1f5f9;
+}

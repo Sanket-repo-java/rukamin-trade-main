@@ -1,0 +1,134 @@
+<div class="broker-app">
+  <div class="quote-ticker" aria-label="Market quotes">
+    <div class="quote-ticker-track">
+      @for (quote of quotes(); track quote.symbol) {
+        <span class="ticker-item"><strong>{{ quote.symbol }}</strong><span>₹{{ quote.price | number:'1.2-2' }}</span><span [class.positive]="quote.change >= 0" [class.negative]="quote.change < 0">{{ quote.change >= 0 ? '+' : '' }}{{ quote.changePercent | number:'1.2-2' }}%</span></span>
+      }
+    </div>
+    <span class="ticker-state" [class.is-live]="connectionState() === 'live'"><span></span>{{ connectionState() === 'live' ? 'LIVE' : 'DEMO' }}</span>
+  </div>
+
+  <header class="broker-header">
+    <div class="header-row">
+      <button class="brand" type="button" aria-label="Home" (click)="setPage('home')"><span class="brand-mark">R</span><span>rukamini<span class="brand-light">trade</span></span></button>
+      <div class="header-actions">
+        <button class="header-icon" type="button" aria-label="My holdings" (click)="setPage('holdings')">▧</button>
+        <button class="account-button" type="button" (click)="signOut()" aria-label="Sign out">DM</button>
+      </div>
+    </div>
+    <div class="search-row">
+      <label class="market-search"><span aria-hidden="true">⌕</span><input type="search" placeholder="Search stocks" [value]="searchTerm()" (input)="updateSearch($any($event.target).value)" aria-label="Search stocks"></label>
+      <button class="pro-button" type="button" (click)="openShortcut('Rukamini Plus')">Plus</button>
+    </div>
+  </header>
+
+  @if (activePage() === 'home' || activePage() === 'watchlist' || activePage() === 'catalogue') {
+    <nav class="market-categories" aria-label="Market categories">
+      @for (category of categories; track category) {
+        <button type="button" [class.selected]="activeCategory() === category" (click)="selectCategory(category)">{{ category }}</button>
+      }
+    </nav>
+  }
+
+  @if (notice()) { <div class="global-notice" role="status">{{ notice() }}</div> }
+
+  <main class="broker-main">
+    @switch (activePage()) {
+      @case ('home') {
+        <section class="shortcut-list" aria-label="Market tools">
+          @for (shortcut of shortcuts; track shortcut) {
+            <button type="button" (click)="openShortcut(shortcut)"><span class="shortcut-icon" aria-hidden="true">{{ shortcut === 'IPO' ? '◉' : shortcut === 'MTF' ? '⇄' : shortcut === 'Advisory' ? '✧' : shortcut === 'Algoverse' ? '◎' : shortcut === 'Chart 360' ? '↗' : shortcut === 'Scalper' ? 'ϟ' : '◷' }}</span>{{ shortcut }}</button>
+          }
+        </section>
+
+        <section class="portfolio-section">
+          <div class="section-heading"><h1><span class="heading-symbol">▣</span>Portfolio <span class="muted-title">(Today)</span></h1><button type="button" (click)="setPage('positions')">Insights <span aria-hidden="true">›</span></button></div>
+          <div class="portfolio-metrics">
+            <button type="button" (click)="setPage('positions')"><span>Positions P&amp;L</span><strong>—</strong><small>Positions data not connected</small></button>
+            <button type="button" (click)="setPage('holdings')"><span>Holdings P&amp;L</span><strong>—</strong><small>Holdings data not connected</small></button>
+          </div>
+        </section>
+
+        <section class="offer-strip">
+          <div><span class="offer-kicker">RUKAMINI TRADE</span><h2>Your market desk, in one place</h2><p>Review live quotes and manage demo orders.</p></div>
+          <button type="button" (click)="setPage('watchlist')">Explore market <span aria-hidden="true">→</span></button>
+        </section>
+
+        <section class="sessions-section">
+          <div class="section-heading"><h2>Live Market Session</h2><button type="button" aria-label="View market list" (click)="setPage('watchlist')">›</button></div>
+          <div class="session-tabs" role="tablist" aria-label="Market sessions">
+            @for (session of ['Recent', 'Upcoming', 'Past']; track session) {
+              <button type="button" role="tab" [attr.aria-selected]="activeSession() === session" [class.selected]="activeSession() === session" (click)="activeSession.set(session)">{{ session }}</button>
+            }
+          </div>
+          <div class="session-empty"><span class="session-mark">◷</span><strong>No {{ activeSession().toLowerCase() }} sessions</strong><span>Session listings are not available in this demo.</span></div>
+        </section>
+
+        <section class="home-watchlist">
+          <div class="section-heading"><h2>Market watch</h2><button type="button" (click)="showWatchlist()">View all <span aria-hidden="true">›</span></button></div>
+          <div class="quote-list compact-list">
+            @for (quote of quotes().slice(0, 3); track quote.symbol) {
+              <button class="quote-row" type="button" (click)="selectQuote(quote); setPage('orders')"><span><strong>{{ quote.symbol }}</strong><small>{{ quote.name }}</small></span><span class="quote-value"><strong>₹{{ quote.price | number:'1.2-2' }}</strong><small [class.positive]="quote.change >= 0" [class.negative]="quote.change < 0">{{ quote.change >= 0 ? '+' : '' }}{{ quote.changePercent | number:'1.2-2' }}%</small></span></button>
+            }
+          </div>
+        </section>
+      }
+
+      @case ('watchlist') {
+        <section class="content-page">
+          <div class="section-heading page-heading"><div><h1>My Lists</h1><p>Live quotes from the demo market feed</p></div><span class="connection-badge" [class.is-live]="connectionState() === 'live'">{{ connectionState() === 'live' ? 'LIVE' : 'OFFLINE' }}</span></div>
+          <div class="quote-list full-list">
+            @for (quote of filteredQuotes(); track quote.symbol) {
+              <button class="quote-row" type="button" [class.active-quote]="selectedSymbol() === quote.symbol" (click)="selectQuote(quote); setPage('orders')"><span><strong>{{ quote.symbol }}</strong><small>{{ quote.name }} · {{ quote.exchange }}</small></span><span class="quote-value"><strong>₹{{ quote.price | number:'1.2-2' }}</strong><small [class.positive]="quote.change >= 0" [class.negative]="quote.change < 0">{{ quote.change >= 0 ? '+' : '' }}{{ quote.change | number:'1.2-2' }} ({{ quote.changePercent | number:'1.2-2' }}%)</small></span></button>
+            } @empty { <div class="empty-page">No matching symbols. Try another search.</div> }
+          </div>
+        </section>
+      }
+
+      @case ('orders') {
+        <section class="content-page">
+          <div class="section-heading page-heading"><div><h1>Orders</h1><p>{{ orders().length }} orders in this demo session</p></div></div>
+          <section class="order-ticket">
+            <div class="ticket-heading"><div><strong>Place an order</strong><span>{{ selectedSymbol() }} · NSE</span></div><span class="delivery-tag">DELIVERY</span></div>
+            <div class="side-switch" role="group" aria-label="Order side"><button type="button" [class.active-buy]="side() === 'BUY'" (click)="side.set('BUY')">Buy</button><button type="button" [class.active-sell]="side() === 'SELL'" (click)="side.set('SELL')">Sell</button></div>
+            <div class="order-fields"><label>Order type<select [value]="orderType()" (change)="setOrderType($any($event.target).value)"><option value="MARKET">Market</option><option value="LIMIT">Limit</option></select></label><label>Quantity<input type="number" min="1" max="100000" [value]="quantity()" (input)="updateQuantity($any($event.target).value)"></label>
+              @if (orderType() === 'LIMIT') { <label>Limit price (₹)<input type="number" min="0.05" step="0.05" [value]="limitPrice()" (input)="updateLimitPrice($any($event.target).value)"></label> }
+            </div>
+            @if (orderType() === 'MARKET') { <div class="ticket-market-price"><span>Market price</span><strong>₹{{ selectedQuote()?.price | number:'1.2-2' }}</strong></div> }
+            <button class="submit-order" [class.sell-order]="side() === 'SELL'" [disabled]="!selectedQuote()" (click)="submitOrder()">{{ side() }} {{ selectedSymbol() }}</button>
+            <p class="order-disclaimer">Demo trading only. Orders are not sent to an exchange.</p>
+          </section>
+          <div class="section-heading list-heading"><h2>Recent orders</h2></div>
+          <div class="order-list">
+            @for (order of orders(); track order.id) {
+              <article class="order-row"><div><strong>{{ order.symbol }}</strong><small>{{ order.createdAt | date:'HH:mm:ss' }} · {{ order.orderType }} · {{ order.quantity }} qty</small></div><div class="quote-value"><strong [class.positive]="order.side === 'BUY'" [class.negative]="order.side === 'SELL'">{{ order.side }}</strong><small>₹{{ order.price | number:'1.2-2' }} · {{ order.status }}</small></div></article>
+            } @empty { <div class="empty-page">Your orders will appear here.</div> }
+          </div>
+        </section>
+      }
+
+      @case ('positions') {
+        <section class="content-page"><div class="section-heading page-heading"><div><h1>Positions</h1><p>Intraday positions</p></div></div><div class="empty-page large-empty"><span class="empty-symbol">↕</span><strong>No open positions</strong><span>Position tracking is not connected to the demo trading API yet.</span></div></section>
+      }
+
+      @case ('holdings') {
+        <section class="content-page"><div class="section-heading page-heading"><div><h1>Holdings</h1><p>Your long-term investments</p></div></div><div class="empty-page large-empty"><span class="empty-symbol">▧</span><strong>No holdings to show</strong><span>Holdings are not connected to the demo trading API yet.</span></div></section>
+      }
+
+      @case ('catalogue') {
+        <section class="content-page"><div class="section-heading page-heading"><div><h1>{{ activeCategory() }}</h1><p>Market category</p></div></div><div class="empty-page large-empty"><span class="empty-symbol">⌕</span><strong>{{ activeCategory() }} data is not connected</strong><span>The demo feed currently provides NSE equity quotes only.</span><button type="button" (click)="selectCategory('Stocks')">View stocks</button></div></section>
+      }
+
+      @case ('tool') {
+        <section class="content-page"><div class="section-heading page-heading"><div><h1>{{ activeTool() }}</h1><p>Market tools</p></div></div><div class="empty-page large-empty"><span class="empty-symbol">✧</span><strong>This tool is not connected yet</strong><span>Explore the available equity quotes while this feature is being developed.</span><button type="button" (click)="setPage('watchlist')">Open market watch</button></div></section>
+      }
+    }
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    @for (page of pages; track page.id) {
+      <button type="button" [class.active]="activePage() === page.id || (page.id === 'home' && activePage() === 'catalogue') || (page.id === 'home' && activePage() === 'tool')" [attr.aria-current]="activePage() === page.id ? 'page' : null" (click)="setPage(page.id)"><span class="nav-icon" aria-hidden="true">{{ page.icon }}</span><span>{{ page.label }}</span></button>
+    }
+  </nav>
+  <footer class="broker-footer"><span>RUKAMINI TRADE</span><span>Simulated market prices · Demo orders only</span></footer>
+</div>
